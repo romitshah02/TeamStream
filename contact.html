@@ -17,7 +17,33 @@
     
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <title>Document</title>
-
+    <script>
+    if ('geolocation' in navigator){
+    navigator.geolocation.getCurrentPosition(pos=>{
+        console.log(pos.coords);
+        var map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    L.marker([pos.coords.latitude, pos.coords.longitude]).addTo(map)
+                        .bindPopup('You are here')
+                        .openPopup();
+    },error => {
+        console.log(pos.coords);
+          // Display the map
+        var map = L.map('map').setView([12.93458, 77.60578 ], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    L.marker([12.93458, 77.60578 ]).addTo(map)
+                        .bindPopup('You are here')
+                        .openPopup();
+    }
+);
+    } else{
+    console.log("No geo location object available");
+    }
+    </script>
     <style>
       .poppins-thin {
   font-family: "Poppins", sans-serif;
@@ -99,6 +125,10 @@
     </main>
 
 
+        <div id="map" style="height: 400px;width: 100%;">
+            <iframe width="100%" height="400" src="https://www.openstreetmap.org/export/embed.html?bbox=77.58400350809099%2C12.96262717042795%2C77.58699685335161%2C12.964174569067591&amp;layer=mapnik&amp;marker=12.963400870950286%2C77.58550018072128" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=12.96340&amp;mlon=77.58550#map=19/12.96340/77.58550">View Larger Map</a></small>
+
+        </div>
 
 </body>
 </html>
